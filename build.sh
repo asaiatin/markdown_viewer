@@ -48,6 +48,29 @@ cat > "$BUNDLE/Contents/Info.plist" <<'PLIST'
     <key>NSAllowsArbitraryLoads</key>
     <true/>
   </dict>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key>
+      <string>Markdown File</string>
+      <key>CFBundleTypeExtensions</key>
+      <array>
+        <string>md</string>
+        <string>markdown</string>
+        <string>mdown</string>
+        <string>mkd</string>
+      </array>
+      <key>LSHandlerRank</key>
+      <string>Alternate</string>
+      <key>LSItemContentTypes</key>
+      <array>
+        <string>net.daringfireball.markdown</string>
+        <string>public.text</string>
+      </array>
+      <key>NSDocumentClass</key>
+      <string>NSDocument</string>
+    </dict>
+  </array>
 </dict>
 </plist>
 PLIST

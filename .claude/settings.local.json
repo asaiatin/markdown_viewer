@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x /Users/shobhit.asai/Documents/Personal/macapp/build.sh)",
+      "Bash(swift build:*)",
+      "Bash(bash build.sh)",
+      "Bash(open /Users/shobhit.asai/Documents/Personal/macapp/MarkdownViewer.app)",
+      "Bash(sudo mv:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

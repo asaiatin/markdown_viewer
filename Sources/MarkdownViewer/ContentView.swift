@@ -51,16 +51,16 @@ CPU Usage (%)
 """
 
 struct ContentView: View {
-    @AppStorage("markdownContent") private var markdownText: String = sampleMarkdown
+    @EnvironmentObject private var appState: AppState
     @State private var showEditor: Bool = true
 
     var body: some View {
         HSplitView {
             if showEditor {
-                EditorPane(text: $markdownText)
+                EditorPane(text: $appState.markdownText)
                     .frame(minWidth: 280, idealWidth: 420)
             }
-            PreviewPane(markdownText: markdownText)
+            PreviewPane(markdownText: appState.markdownText)
                 .frame(minWidth: 400, maxWidth: .infinity)
         }
         .frame(minWidth: showEditor ? 800 : 500, minHeight: 550)
@@ -77,12 +77,12 @@ struct ContentView: View {
                 Divider()
 
                 Button("Clear") {
-                    markdownText = ""
+                    appState.markdownText = ""
                 }
                 .help("Clear the editor")
 
                 Button("Sample") {
-                    markdownText = sampleMarkdown
+                    appState.markdownText = sampleMarkdown
                 }
                 .help("Load sample markdown")
             }
