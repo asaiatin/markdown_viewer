@@ -51,7 +51,7 @@ CPU Usage (%)
 """
 
 struct ContentView: View {
-    @State private var markdownText: String = sampleMarkdown
+    @AppStorage("markdownContent") private var markdownText: String = sampleMarkdown
     @State private var showEditor: Bool = true
 
     var body: some View {
