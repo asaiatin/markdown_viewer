@@ -1,23 +1,29 @@
 import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    /// Called when a single .md file is opened (double-click in Finder, `open` CLI, etc.)
+    /// Modern API — called by macOS when files are opened via Finder, `open` CLI, etc.
+    func application(_ application: NSApplication, open urls: [URL]) {
+        guard let url = urls.first else { return }
+        load(url)
+    }
+
+    /// Legacy API fallback
     func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        return load(filename)
+        load(URL(fileURLWithPath: filename))
+        return true
     }
 
-    /// Called when multiple files are opened at once
     func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        if let last = filenames.last { _ = load(last) }
+        if let last = filenames.last {
+            load(URL(fileURLWithPath: last))
+        }
     }
 
-    private func load(_ filename: String) -> Bool {
-        guard let content = try? String(contentsOfFile: filename, encoding: .utf8) else {
-            return false
-        }
-        DispatchQueue.main.async {
+    private func load(_ url: URL) {
+        guard let content = try? String(contentsOf: url, encoding: .utf8) else { return }
+        // Slight delay ensures SwiftUI views are subscribed before we push the update
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             AppState.shared.markdownText = content
         }
-        return true
     }
 }
